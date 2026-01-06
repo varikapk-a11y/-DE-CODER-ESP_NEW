@@ -23,7 +23,6 @@ CODER>ESP_NEW должен упаковывать данные от множес
 [Датчик 3 Int]   ───┘
 
 # Входы-Выходы
-Новая структура блока в редакторе:
 
 Тип	Имя	Отображаемое имя	Тип данных
 Вход	in_sensor1_float	Д1 (float)	Float
@@ -34,7 +33,8 @@ CODER>ESP_NEW должен упаковывать данные от множес
 Вход	in_sensor3_int	Д6 (int)	Integer
 Вход	in_peer_mac	MAC получателя	String
 Вход	in_trigger	Триггер	Boolean
-Выход	out_debug_str	Данные для ESP-NOW	String
+Выход	out_debug_str	данные для ESP-NOW	String
+
 ------------
 
 Тип	Имя (Name)	Тип данных (Data Type)
