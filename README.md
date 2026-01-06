@@ -299,26 +299,26 @@ if (in_trigger && in_espnow_string.length() > 0) {
 ###  ошибки в arduino IDE №3
 
 C:\Users\sasa\AppData\Local\Temp\.arduinoIDE-unsaved202606-8336-12vz7e7.m828\sketch_jan6a\sketch_jan6a.ino: In function 'void loop()':
-C:\Users\sasa\AppData\Local\Temp\.arduinoIDE-unsaved202606-8336-12vz7e7.m828\sketch_jan6a\sketch_jan6a.ino:65:6: error: a function-definition is not allowed here before '{' token
-   65 |      {
+C:\Users\sasa\AppData\Local\Temp\.arduinoIDE-unsaved202606-8336-12vz7e7.m828\sketch_jan6a\sketch_jan6a.ino:64:6: error: a function-definition is not allowed here before '{' token
+   64 |      {
       |      ^
-C:\Users\sasa\AppData\Local\Temp\.arduinoIDE-unsaved202606-8336-12vz7e7.m828\sketch_jan6a\sketch_jan6a.ino:88:9: error: 'sendSensorUpdate' was not declared in this scope
-   88 |         sendSensorUpdate("F1", in_sensor1_float_125475758_1);
+C:\Users\sasa\AppData\Local\Temp\.arduinoIDE-unsaved202606-8336-12vz7e7.m828\sketch_jan6a\sketch_jan6a.ino:82:9: error: 'sendSensorUpdate' was not declared in this scope
+   82 |         sendSensorUpdate("F1", in_sensor1_float_248594005_1);
       |         ^~~~~~~~~~~~~~~~
-C:\Users\sasa\AppData\Local\Temp\.arduinoIDE-unsaved202606-8336-12vz7e7.m828\sketch_jan6a\sketch_jan6a.ino:93:9: error: 'sendSensorUpdate' was not declared in this scope
-   93 |         sendSensorUpdate("F2", in_sensor2_float_125475758_1);
+C:\Users\sasa\AppData\Local\Temp\.arduinoIDE-unsaved202606-8336-12vz7e7.m828\sketch_jan6a\sketch_jan6a.ino:87:9: error: 'sendSensorUpdate' was not declared in this scope
+   87 |         sendSensorUpdate("F2", in_sensor2_float_248594005_1);
       |         ^~~~~~~~~~~~~~~~
-C:\Users\sasa\AppData\Local\Temp\.arduinoIDE-unsaved202606-8336-12vz7e7.m828\sketch_jan6a\sketch_jan6a.ino:98:9: error: 'sendSensorUpdate' was not declared in this scope
-   98 |         sendSensorUpdate("F3", in_sensor3_float_125475758_1);
+C:\Users\sasa\AppData\Local\Temp\.arduinoIDE-unsaved202606-8336-12vz7e7.m828\sketch_jan6a\sketch_jan6a.ino:92:9: error: 'sendSensorUpdate' was not declared in this scope
+   92 |         sendSensorUpdate("F3", in_sensor3_float_248594005_1);
       |         ^~~~~~~~~~~~~~~~
-C:\Users\sasa\AppData\Local\Temp\.arduinoIDE-unsaved202606-8336-12vz7e7.m828\sketch_jan6a\sketch_jan6a.ino:104:9: error: 'sendSensorUpdate' was not declared in this scope
-  104 |         sendSensorUpdate("I1", (float)in_sensor1_int_125475758_1);
+C:\Users\sasa\AppData\Local\Temp\.arduinoIDE-unsaved202606-8336-12vz7e7.m828\sketch_jan6a\sketch_jan6a.ino:97:9: error: 'sendSensorUpdate' was not declared in this scope
+   97 |         sendSensorUpdate("I1", (float)in_sensor1_int_248594005_1);
       |         ^~~~~~~~~~~~~~~~
-C:\Users\sasa\AppData\Local\Temp\.arduinoIDE-unsaved202606-8336-12vz7e7.m828\sketch_jan6a\sketch_jan6a.ino:109:9: error: 'sendSensorUpdate' was not declared in this scope
-  109 |         sendSensorUpdate("I2", (float)in_sensor2_int_125475758_1);
+C:\Users\sasa\AppData\Local\Temp\.arduinoIDE-unsaved202606-8336-12vz7e7.m828\sketch_jan6a\sketch_jan6a.ino:102:9: error: 'sendSensorUpdate' was not declared in this scope
+  102 |         sendSensorUpdate("I2", (float)in_sensor2_int_248594005_1);
       |         ^~~~~~~~~~~~~~~~
-C:\Users\sasa\AppData\Local\Temp\.arduinoIDE-unsaved202606-8336-12vz7e7.m828\sketch_jan6a\sketch_jan6a.ino:114:9: error: 'sendSensorUpdate' was not declared in this scope
-  114 |         sendSensorUpdate("I3", (float)in_sensor3_int_125475758_1);
+C:\Users\sasa\AppData\Local\Temp\.arduinoIDE-unsaved202606-8336-12vz7e7.m828\sketch_jan6a\sketch_jan6a.ino:107:9: error: 'sendSensorUpdate' was not declared in this scope
+  107 |         sendSensorUpdate("I3", (float)in_sensor3_int_248594005_1);
       |         ^~~~~~~~~~~~~~~~
 
 #### актуальный скетч из flprog для отправки в arduino ide 2.3.7
@@ -335,20 +335,20 @@ RT_HW_SPECIAL_ISTANCE
 #endif
 FLProgOnBoardWifiInterface WifiInterface_103439370;
 #define FLPROG_WIFI_INTERFACE1 WifiInterface_103439370
-float in_sensor1_float_125475758_1;
-float in_sensor2_float_125475758_1;
-float in_sensor3_float_125475758_1;
-int16_t in_sensor1_int_125475758_1;
-int16_t in_sensor2_int_125475758_1;
-int16_t in_sensor3_int_125475758_1;
-String in_peer_mac_125475758_1;
-bool in_trigger_125475758_1;
-String out_debug_str_125475758_1;
-String out_espnow_string_125475758_1;
+float in_sensor1_float_248594005_1;
+float in_sensor2_float_248594005_1;
+float in_sensor3_float_248594005_1;
+int16_t in_sensor1_int_248594005_1;
+int16_t in_sensor2_int_248594005_1;
+int16_t in_sensor3_int_248594005_1;
+String in_peer_mac_248594005_1;
+bool in_trigger_248594005_1;
+String out_debug_str_248594005_1;
+String out_espnow_string_248594005_1;
 // Переменные для хранения предыдущих значений датчиков
-float old_f1_125475758_1 = 0, old_f2 = 0, old_f3 = 0;
-int old_i1_125475758_1 = 0, old_i2 = 0, old_i3 = 0;
-bool firstRun_125475758_1 = true;
+float old_f1_248594005_1 = 0, old_f2 = 0, old_f3 = 0;
+int old_i1_248594005_1 = 0, old_i2 = 0, old_i3 = 0;
+bool firstRun_248594005_1 = true;
 void setup()
  {
   RT_HW_Base.shed.quick.qnt = 5;
@@ -377,70 +377,62 @@ void loop()
   //Плата:1
   if(RT_HW_Base.shed.frdm.num == 1)
    {
-    in_sensor1_float_125475758_1 = 0;
-    in_sensor2_float_125475758_1 = 0;
-    in_sensor3_float_125475758_1 = 0;
-    in_sensor1_int_125475758_1 = 0;
-    in_sensor2_int_125475758_1 = 0;
-    in_sensor3_int_125475758_1 = 0;
-    in_peer_mac_125475758_1 = String("");
-    in_trigger_125475758_1 = 0;
-    //===ВСПОМОГАТЕЛЬНАЯ ФУНКЦИЯ ДЛЯ ФОРМИРОВАНИЯ СТРОКИ===
+    in_sensor1_float_248594005_1 = 0;
+    in_sensor2_float_248594005_1 = 0;
+    in_sensor3_float_248594005_1 = 0;
+    in_sensor1_int_248594005_1 = 0;
+    in_sensor2_int_248594005_1 = 0;
+    in_sensor3_int_248594005_1 = 0;
+    in_peer_mac_248594005_1 = String("");
+    in_trigger_248594005_1 = 0;
     void sendSensorUpdate(String key, float value)
      {
-      // Формируем строку в формате "КЛЮЧ:ЗНАЧЕНИЕ"(например,"F1:25.50")
-      out_espnow_string_125475758_1 = key  +  ":"  +  String(value, 2);
-      // Для отладки выводим более подробную информацию в монитор порта
-      out_debug_str_125475758_1 = "Sent ->"  +  out_espnow_string_125475758_1;}
-    // ИНИЦИАЛИЗАЦИЯ ПРИ ПЕРВОМ ЗАПУСКЕ
-    if(firstRun_125475758_1)
+      out_espnow_string_248594005_1 = key  +  ":"  +  String(value, 2);
+      out_debug_str_248594005_1 = "Sent ->"  +  out_espnow_string_248594005_1;}
+    if(firstRun_248594005_1)
      {
-      old_f1_125475758_1 = in_sensor1_float_125475758_1;
-      old_f2 = in_sensor2_float_125475758_1;
-      old_f3 = in_sensor3_float_125475758_1;
-      old_i1_125475758_1 = in_sensor1_int_125475758_1;
-      old_i2 = in_sensor2_int_125475758_1;
-      old_i3 = in_sensor3_int_125475758_1;
-      firstRun_125475758_1 = false;
-      out_debug_str_125475758_1 = "Coder INIT";
+      old_f1_248594005_1 = in_sensor1_float_248594005_1;
+      old_f2 = in_sensor2_float_248594005_1;
+      old_f3 = in_sensor3_float_248594005_1;
+      old_i1_248594005_1 = in_sensor1_int_248594005_1;
+      old_i2 = in_sensor2_int_248594005_1;
+      old_i3 = in_sensor3_int_248594005_1;
+      firstRun_248594005_1 = false;
+      out_debug_str_248594005_1 = "Coder INIT";
       return;}
-    // ОСНОВНАЯ ЛОГИКА: ПРОВЕРЯЕМ ИЗМЕНЕНИЯ И ФОРМИРУЕМ СТРОКУ
-    if(in_trigger_125475758_1)
+    if(in_trigger_248594005_1)
      {
-      // --- Проверка FLOAT датчиков ---
-      if(in_sensor1_float_125475758_1 != old_f1_125475758_1)
+      if(in_sensor1_float_248594005_1 != old_f1_248594005_1)
        {
-        sendSensorUpdate("F1", in_sensor1_float_125475758_1);
-        old_f1_125475758_1 = in_sensor1_float_125475758_1;
+        sendSensorUpdate("F1", in_sensor1_float_248594005_1);
+        old_f1_248594005_1 = in_sensor1_float_248594005_1;
         return;}
-      if(in_sensor2_float_125475758_1 != old_f2)
+      if(in_sensor2_float_248594005_1 != old_f2)
        {
-        sendSensorUpdate("F2", in_sensor2_float_125475758_1);
-        old_f2 = in_sensor2_float_125475758_1;
+        sendSensorUpdate("F2", in_sensor2_float_248594005_1);
+        old_f2 = in_sensor2_float_248594005_1;
         return;}
-      if(in_sensor3_float_125475758_1 != old_f3)
+      if(in_sensor3_float_248594005_1 != old_f3)
        {
-        sendSensorUpdate("F3", in_sensor3_float_125475758_1);
-        old_f3 = in_sensor3_float_125475758_1;
+        sendSensorUpdate("F3", in_sensor3_float_248594005_1);
+        old_f3 = in_sensor3_float_248594005_1;
         return;}
-      // --- Проверка INT датчиков(преобразуем int во float)---
-      if(in_sensor1_int_125475758_1 != old_i1_125475758_1)
+      if(in_sensor1_int_248594005_1 != old_i1_248594005_1)
        {
-        sendSensorUpdate("I1", (float)in_sensor1_int_125475758_1);
-        old_i1_125475758_1 = in_sensor1_int_125475758_1;
+        sendSensorUpdate("I1", (float)in_sensor1_int_248594005_1);
+        old_i1_248594005_1 = in_sensor1_int_248594005_1;
         return;}
-      if(in_sensor2_int_125475758_1 != old_i2)
+      if(in_sensor2_int_248594005_1 != old_i2)
        {
-        sendSensorUpdate("I2", (float)in_sensor2_int_125475758_1);
-        old_i2 = in_sensor2_int_125475758_1;
+        sendSensorUpdate("I2", (float)in_sensor2_int_248594005_1);
+        old_i2 = in_sensor2_int_248594005_1;
         return;}
-      if(in_sensor3_int_125475758_1 != old_i3)
+      if(in_sensor3_int_248594005_1 != old_i3)
        {
-        sendSensorUpdate("I3", (float)in_sensor3_int_125475758_1);
-        old_i3 = in_sensor3_int_125475758_1;
+        sendSensorUpdate("I3", (float)in_sensor3_int_248594005_1);
+        old_i3 = in_sensor3_int_248594005_1;
         return;}
-      out_debug_str_125475758_1 = "No changes";
-      // Сообщение,если триггер был,но изменений нет
-    }}}
+      out_debug_str_248594005_1 = "No changes";}}}
 
+---------------------
 # FLProg 9.6.4
