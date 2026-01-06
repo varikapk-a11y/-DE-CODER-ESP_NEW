@@ -1,0 +1,43 @@
+#include <ESP8266WiFi.h>
+#include <espnow.h>
+bool st106008167 = true;
+uint8_t broadcastAddress106008167[] = {0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF};
+char char_arraya106008167[32];
+typedef struct struct_message106008167 
+{
+       char a106008167[32];
+}
+ struct_message106008167;
+struct_message106008167 myData106008167;
+#include "flprogUtilites.h"
+extern "C" 
+{
+    #include "user_interface.h"
+}
+void setup()
+{
+    WiFi.mode(WIFI_STA);
+    WiFi.disconnect ();
+    if (esp_now_init() != 0)  return;
+    esp_now_set_self_role(ESP_NOW_ROLE_CONTROLLER);
+    esp_now_register_send_cb(OnDataSent106008167);
+    esp_now_add_peer(broadcastAddress106008167, ESP_NOW_ROLE_SLAVE, 1, NULL, 0);
+}
+void loop()
+{
+    //Плата:1
+         if ((0)) 
+    {
+        if(st106008167)
+        {
+            st106008167 = false;
+            (String("")).toCharArray(char_arraya106008167, (String("")).length() + 1);
+            strcpy(myData106008167.a106008167, char_arraya106008167);
+            esp_now_send(broadcastAddress106008167, (uint8_t *) &myData106008167, sizeof(myData106008167));
+        }
+    }
+    else st106008167 = true;
+}
+void OnDataSent106008167(uint8_t *mac_addr, uint8_t sendStatus) 
+{
+}
