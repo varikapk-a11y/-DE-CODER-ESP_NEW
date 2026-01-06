@@ -1,0 +1,97 @@
+#include "flprogUtilites.h"
+extern "C" 
+{
+    #include "user_interface.h"
+}
+float in_sensor1_float_68231385_1;
+float in_sensor2_float_68231385_1;
+float in_sensor3_float_68231385_1;
+int in_sensor1_int_68231385_1;
+int in_sensor2_int_68231385_1;
+int in_sensor3_int_68231385_1;
+String in_peer_mac_68231385_1;
+bool in_trigger_68231385_1;
+String out_debug_str_68231385_1;
+String out_espnow_string_68231385_1;
+// Переменные для хранения предыдущих значений датчиков
+float old_f1_68231385_1= 0, old_f2 = 0, old_f3 = 0;
+int old_i1_68231385_1= 0, old_i2 = 0, old_i3 = 0;
+bool firstRun_68231385_1= true;
+// Объявление функции (без тела, только сигнатура)
+void sendSensorUpdate_68231385_1(String key, float value);
+void setup()
+{
+}
+void loop()
+{
+    //Плата:1
+    in_sensor1_float_68231385_1 = 0;
+    in_sensor2_float_68231385_1 = 0;
+    in_sensor3_float_68231385_1 = 0;
+    in_sensor1_int_68231385_1 = 0;
+    in_sensor2_int_68231385_1 = 0;
+    in_sensor3_int_68231385_1 = 0;
+    in_peer_mac_68231385_1 = String("");
+    in_trigger_68231385_1 = 0;
+    // === ОПРЕДЕЛЕНИЕ ФУНКЦИИ ===
+    void sendSensorUpdate_68231385_1(String key, float value) 
+    {
+        out_espnow_string_68231385_1 = key + ":" + String(value, 2);
+        out_debug_str_68231385_1 = "Sent -> " + out_espnow_string_68231385_1;
+    }
+    // === ОСНОВНОЙ КОД ===
+// ИНИЦИАЛИЗАЦИЯ ПРИ ПЕРВОМ ЗАПУСКЕ
+    if (firstRun_68231385_1) 
+    {
+        old_f1_68231385_1 = in_sensor1_float_68231385_1;
+        old_f2 = in_sensor2_float_68231385_1;
+        old_f3 = in_sensor3_float_68231385_1;
+        old_i1_68231385_1 = in_sensor1_int_68231385_1;
+        old_i2 = in_sensor2_int_68231385_1;
+        old_i3 = in_sensor3_int_68231385_1;
+        firstRun_68231385_1 = false;
+        out_debug_str_68231385_1 = "Coder INIT";
+        return;
+    }
+    // ОСНОВНАЯ ЛОГИКА: ПРОВЕРЯЕМ ИЗМЕНЕНИЯ И ФОРМИРУЕМ СТРОКУ
+    if (in_trigger_68231385_1) 
+    {
+        if (in_sensor1_float_68231385_1 != old_f1_68231385_1) 
+        {
+            sendSensorUpdate_68231385_1("F1", in_sensor1_float_68231385_1);
+            old_f1_68231385_1 = in_sensor1_float_68231385_1;
+            return;
+        }
+        if (in_sensor2_float_68231385_1 != old_f2) 
+        {
+            sendSensorUpdate_68231385_1("F2", in_sensor2_float_68231385_1);
+            old_f2 = in_sensor2_float_68231385_1;
+            return;
+        }
+        if (in_sensor3_float_68231385_1 != old_f3) 
+        {
+            sendSensorUpdate_68231385_1("F3", in_sensor3_float_68231385_1);
+            old_f3 = in_sensor3_float_68231385_1;
+            return;
+        }
+        if (in_sensor1_int_68231385_1 != old_i1_68231385_1) 
+        {
+            sendSensorUpdate_68231385_1("I1", (float)in_sensor1_int_68231385_1);
+            old_i1_68231385_1 = in_sensor1_int_68231385_1;
+            return;
+        }
+        if (in_sensor2_int_68231385_1 != old_i2) 
+        {
+            sendSensorUpdate_68231385_1("I2", (float)in_sensor2_int_68231385_1);
+            old_i2 = in_sensor2_int_68231385_1;
+            return;
+        }
+        if (in_sensor3_int_68231385_1 != old_i3) 
+        {
+            sendSensorUpdate_68231385_1("I3", (float)in_sensor3_int_68231385_1);
+            old_i3 = in_sensor3_int_68231385_1;
+            return;
+        }
+        out_debug_str_68231385_1 = "No changes";
+    }
+}
