@@ -1,54 +1,67 @@
 ## для блока CODER>ESP_NEW
 # Код для DeclareSection
-// Переменные для хранения последних разобранных значений float last_f1 = 0, last_f2 = 0, last_f3 = 0; int last_i1 = 0, last_i2 = 0, last_i3 = 0;
+// Переменные для хранения предыдущих значений датчиков
+float old_f1= 0, old_f2 = 0, old_f3 = 0;
+int old_i1= 0, old_i2 = 0, old_i3 = 0;
+bool firstRun= true;
+// Объявление функции (без тела, только сигнатура)
+void sendSensorUpdate(String key, float value);
 
 ------------
 
-# Код для LoopSection
-if (colonIndex != -1) {
-    // Разделяем строку на ключ и значение
-    String key = in_espnow_string.substring(0, colonIndex);
-    String valStr = in_espnow_string.substring(colonIndex + 1);
-    
-    // Преобразуем строку значения в число (float)
-    float value = valStr.toFloat();
-    
-    // Распределяем значение по ключу
-    if (key == "F1") {
-        last_f1 = value;
-        out_sensor1_float = last_f1;
-        out_debug_str = "D: F1=" + String(last_f1, 2);
+// === ОПРЕДЕЛЕНИЕ ФУНКЦИИ ===
+void sendSensorUpdate(String key, float value) {
+    out_espnow_string = key + ":" + String(value, 2);
+    out_debug_str = "Sent -> " + out_espnow_string;
+}
+
+// === ОСНОВНОЙ КОД ===
+// ИНИЦИАЛИЗАЦИЯ ПРИ ПЕРВОМ ЗАПУСКЕ
+if (firstRun) {
+    old_f1 = in_sensor1_float;
+    old_f2 = in_sensor2_float;
+    old_f3 = in_sensor3_float;
+    old_i1 = in_sensor1_int;
+    old_i2 = in_sensor2_int;
+    old_i3 = in_sensor3_int;
+    firstRun = false;
+    out_debug_str = "Coder INIT";
+    return;
+}
+
+// ОСНОВНАЯ ЛОГИКА: ПРОВЕРЯЕМ ИЗМЕНЕНИЯ И ФОРМИРУЕМ СТРОКУ
+if (in_trigger) {
+    if (in_sensor1_float != old_f1) {
+        sendSensorUpdate("F1", in_sensor1_float);
+        old_f1 = in_sensor1_float;
+        return;
     }
-    else if (key == "F2") {
-        last_f2 = value;
-        out_sensor2_float = last_f2;
-        out_debug_str = "D: F2=" + String(last_f2, 2);
+    if (in_sensor2_float != old_f2) {
+        sendSensorUpdate("F2", in_sensor2_float);
+        old_f2 = in_sensor2_float;
+        return;
     }
-    else if (key == "F3") {
-        last_f3 = value;
-        out_sensor3_float = last_f3;
-        out_debug_str = "D: F3=" + String(last_f3, 2);
+    if (in_sensor3_float != old_f3) {
+        sendSensorUpdate("F3", in_sensor3_float);
+        old_f3 = in_sensor3_float;
+        return;
     }
-    else if (key == "I1") {
-        last_i1 = (int)value; // Преобразуем float обратно в int
-        out_sensor1_int = last_i1;
-        out_debug_str = "D: I1=" + String(last_i1);
+    if (in_sensor1_int != old_i1) {
+        sendSensorUpdate("I1", (float)in_sensor1_int);
+        old_i1 = in_sensor1_int;
+        return;
     }
-    else if (key == "I2") {
-        last_i2 = (int)value;
-        out_sensor2_int = last_i2;
-        out_debug_str = "D: I2=" + String(last_i2);
+    if (in_sensor2_int != old_i2) {
+        sendSensorUpdate("I2", (float)in_sensor2_int);
+        old_i2 = in_sensor2_int;
+        return;
     }
-    else if (key == "I3") {
-        last_i3 = (int)value;
-        out_sensor3_int = last_i3;
-        out_debug_str = "D: I3=" + String(last_i3);
+    if (in_sensor3_int != old_i3) {
+        sendSensorUpdate("I3", (float)in_sensor3_int);
+        old_i3 = in_sensor3_int;
+        return;
     }
-    else {
-        out_debug_str = "D: Unknown key -> " + in_espnow_string;
-    }
-} else {
-    out_debug_str = "D: Invalid format -> " + in_espnow_string;
+    out_debug_str = "No changes";
 }
 
 --------------------
