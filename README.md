@@ -2,7 +2,7 @@
 # CODER>ESP_NEW - блок
 Теперь я полностью понял архитектуру. Цель проекта — расширить количество входов для блока ESP_NOW ESP8266, объединив данные от многих датчиков в один пакет, который можно передать через один вход ESP-NOW блока.
 
-Правильная задача:
+# Правильная задача:
 CODER>ESP_NEW должен упаковывать данные от множества датчиков в единый поток, который можно подать на один из доступных типизированных входов блока ESP_NOW ESP8266.
 
 #  Решение: Использование входа String
@@ -12,13 +12,41 @@ CODER>ESP_NEW должен упаковывать данные от множес
 Строка может содержать структурированные данные.
 
 Это полностью соответствует описанию проекта.
-Итоговая архитектура:
+
+# Итоговая архитектура:
+
 [Датчик 1 Float] ───┐
 [Датчик 2 Float] ───┤
 [Датчик 3 Float] ───┼──> [CODER>ESP_NEW] ──> (Выход String) ──> [Вход String ESP_NOW ESP8266]
 [Датчик 1 Int]   ───┤
 [Датчик 2 Int]   ───┤
 [Датчик 3 Int]   ───┘
+
+# Входы-Выходы
+Новая структура блока в редакторе:
+
+Тип	Имя	Отображаемое имя	Тип данных
+Вход	in_sensor1_float	Д1 (float)	Float
+Вход	in_sensor2_float	Д2 (float)	Float
+Вход	in_sensor3_float	Д3 (float)	Float
+Вход	in_sensor1_int	Д4 (int)	Integer
+Вход	in_sensor2_int	Д5 (int)	Integer
+Вход	in_sensor3_int	Д6 (int)	Integer
+Вход	in_peer_mac	MAC получателя	String
+Вход	in_trigger	Триггер	Boolean
+Выход	out_debug_str	Данные для ESP-NOW	String
+------------
+
+Тип	Имя (Name)	Тип данных (Data Type)
+Вход	in_espnow_string	String
+Вход	in_trigger	Boolean
+Выход	out_sensor1_float	Float
+Выход	out_sensor2_float	Float
+Выход	out_sensor3_float	Float
+Выход	out_sensor1_int	Integer
+Выход	out_sensor2_int	Integer
+Выход	out_sensor3_int	Integer
+Выход	out_debug_str	String
 
 # Формат строки:
 
