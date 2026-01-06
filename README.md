@@ -269,32 +269,32 @@ if (in_trigger && in_espnow_string.length() > 0) {
 
 Добавлены префиксы [DECODER] для фильтрации и ERR: для ошибок.
 
-### ошибки в arduino IDE
+### 2 ошибки в arduino IDE
 
 C:\Users\sasa\AppData\Local\Temp\.arduinoIDE-unsaved202606-8336-12vz7e7.m828\sketch_jan6a\sketch_jan6a.ino: In function 'void loop()':
 C:\Users\sasa\AppData\Local\Temp\.arduinoIDE-unsaved202606-8336-12vz7e7.m828\sketch_jan6a\sketch_jan6a.ino:65:6: error: a function-definition is not allowed here before '{' token
    65 |      {
       |      ^
 C:\Users\sasa\AppData\Local\Temp\.arduinoIDE-unsaved202606-8336-12vz7e7.m828\sketch_jan6a\sketch_jan6a.ino:88:9: error: 'sendSensorUpdate' was not declared in this scope
-   88 |         sendSensorUpdate("F1", in_sensor1_float_157758183_1);
+   88 |         sendSensorUpdate("F1", in_sensor1_float_228971699_1);
       |         ^~~~~~~~~~~~~~~~
 C:\Users\sasa\AppData\Local\Temp\.arduinoIDE-unsaved202606-8336-12vz7e7.m828\sketch_jan6a\sketch_jan6a.ino:93:9: error: 'sendSensorUpdate' was not declared in this scope
-   93 |         sendSensorUpdate("F2", in_sensor2_float_157758183_1);
+   93 |         sendSensorUpdate("F2", in_sensor2_float_228971699_1);
       |         ^~~~~~~~~~~~~~~~
 C:\Users\sasa\AppData\Local\Temp\.arduinoIDE-unsaved202606-8336-12vz7e7.m828\sketch_jan6a\sketch_jan6a.ino:98:9: error: 'sendSensorUpdate' was not declared in this scope
-   98 |         sendSensorUpdate("F3", in_sensor3_float_157758183_1);
+   98 |         sendSensorUpdate("F3", in_sensor3_float_228971699_1);
       |         ^~~~~~~~~~~~~~~~
 C:\Users\sasa\AppData\Local\Temp\.arduinoIDE-unsaved202606-8336-12vz7e7.m828\sketch_jan6a\sketch_jan6a.ino:104:9: error: 'sendSensorUpdate' was not declared in this scope
-  104 |         sendSensorUpdate("I1", (float)in_sensor1_int_157758183_1);
+  104 |         sendSensorUpdate("I1", (float)in_sensor1_int_228971699_1);
       |         ^~~~~~~~~~~~~~~~
 C:\Users\sasa\AppData\Local\Temp\.arduinoIDE-unsaved202606-8336-12vz7e7.m828\sketch_jan6a\sketch_jan6a.ino:109:9: error: 'sendSensorUpdate' was not declared in this scope
-  109 |         sendSensorUpdate("I2", (float)in_sensor2_int_157758183_1);
+  109 |         sendSensorUpdate("I2", (float)in_sensor2_int_228971699_1);
       |         ^~~~~~~~~~~~~~~~
 C:\Users\sasa\AppData\Local\Temp\.arduinoIDE-unsaved202606-8336-12vz7e7.m828\sketch_jan6a\sketch_jan6a.ino:114:9: error: 'sendSensorUpdate' was not declared in this scope
-  114 |         sendSensorUpdate("I3", (float)in_sensor3_int_157758183_1);
+  114 |         sendSensorUpdate("I3", (float)in_sensor3_int_228971699_1);
       |         ^~~~~~~~~~~~~~~~
 
-#### скетч от flprog
+#### 2 скетч от flprog
 
 #define RT_HW_FLPROG_PRG "FLProg 9.6.4 - SP 0.0"
 #define RT_HW_FLPROG_PRJ "FLProg 9.6.4 - SP 0.0"
