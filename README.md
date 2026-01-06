@@ -249,7 +249,7 @@ if (in_trigger && in_espnow_string.length() > 0) {
         out_debug_str = "[DECODER] ERR: Invalid format -> " + in_espnow_string;
     }
 }
-                                                               
+                                                                           
 #  Порядок тестирования
 Соберите схему передатчика (CODER>ESP_NEW → ESP_NOW (Transmitter)).
 
@@ -258,7 +258,7 @@ if (in_trigger && in_espnow_string.length() > 0) {
 Откройте Монитор порта (два окна для двух UART или один с фильтрацией).
 
 Подайте изменение на датчик передатчика. Должны увидеть:
-
+                    
 Сообщение о отправке на стороне передатчика.
 
 Сообщение о приёме от ESP_NOW (Receiver).
