@@ -1,0 +1,65 @@
+# Код для DeclareSection
+// Переменные для хранения последних разобранных значений float last_f1 = 0, last_f2 = 0, last_f3 = 0; int last_i1 = 0, last_i2 = 0, last_i3 = 0;
+
+------------
+
+# Код для LoopSection
+if (colonIndex != -1) {
+    // Разделяем строку на ключ и значение
+    String key = in_espnow_string.substring(0, colonIndex);
+    String valStr = in_espnow_string.substring(colonIndex + 1);
+    
+    // Преобразуем строку значения в число (float)
+    float value = valStr.toFloat();
+    
+    // Распределяем значение по ключу
+    if (key == "F1") {
+        last_f1 = value;
+        out_sensor1_float = last_f1;
+        out_debug_str = "D: F1=" + String(last_f1, 2);
+    }
+    else if (key == "F2") {
+        last_f2 = value;
+        out_sensor2_float = last_f2;
+        out_debug_str = "D: F2=" + String(last_f2, 2);
+    }
+    else if (key == "F3") {
+        last_f3 = value;
+        out_sensor3_float = last_f3;
+        out_debug_str = "D: F3=" + String(last_f3, 2);
+    }
+    else if (key == "I1") {
+        last_i1 = (int)value; // Преобразуем float обратно в int
+        out_sensor1_int = last_i1;
+        out_debug_str = "D: I1=" + String(last_i1);
+    }
+    else if (key == "I2") {
+        last_i2 = (int)value;
+        out_sensor2_int = last_i2;
+        out_debug_str = "D: I2=" + String(last_i2);
+    }
+    else if (key == "I3") {
+        last_i3 = (int)value;
+        out_sensor3_int = last_i3;
+        out_debug_str = "D: I3=" + String(last_i3);
+    }
+    else {
+        out_debug_str = "D: Unknown key -> " + in_espnow_string;
+    }
+} else {
+    out_debug_str = "D: Invalid format -> " + in_espnow_string;
+}
+
+--------------------
+
+# Входы-Выходы
+Тип Имя Отображаемое имя Тип данных Вход in_sensor1_float Д1 (float) Float 
+Вход in_sensor2_float Д2 (float) Float Вход in_sensor3_float Д3 (float) Float 
+Вход in_sensor1_int Д4 (int) Integer Вход in_sensor2_int Д5 (int) Integer 
+Вход in_sensor3_int Д6 (int) Integer Вход in_peer_mac MAC получателя String 
+Вход in_trigger Триггер Boolean Выход out_debug_str данные для ESP-NOW String
+
+Тип Имя (Name) Тип данных (Data Type) Вход in_espnow_string String 
+Вход in_trigger Boolean Выход out_sensor1_float Float Выход out_sensor2_float Float 
+Выход out_sensor3_float Float Выход out_sensor1_int Integer Выход out_sensor2_int Integer 
+Выход out_sensor3_int Integer Выход out_debug_str String
