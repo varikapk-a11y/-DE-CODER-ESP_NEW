@@ -270,34 +270,26 @@ if (in_trigger && in_espnow_string.length() > 0) {
 Добавлены префиксы [DECODER] для фильтрации и ERR: для ошибок.
 
 ### ошибки в arduino IDE
-C:\Users\sasa\AppData\Local\Temp\.arduinoIDE-unsaved202606-8336-12vz7e7.m828\sketch_jan6a\sketch_jan6a.ino:14:1: error: 'FLProgUartParametrs' does not name a type
-   14 | FLProgUartParametrs Uart_256272636_data;
-      | ^~~~~~~~~~~~~~~~~~~
-C:\Users\sasa\AppData\Local\Temp\.arduinoIDE-unsaved202606-8336-12vz7e7.m828\sketch_jan6a\sketch_jan6a.ino: In function 'void setup()':
-C:\Users\sasa\AppData\Local\Temp\.arduinoIDE-unsaved202606-8336-12vz7e7.m828\sketch_jan6a\sketch_jan6a.ino:56:3: error: 'Uart_256272636_data' was not declared in this scope
-   56 |   Uart_256272636_data.speed = 115200;
-      |   ^~~~~~~~~~~~~~~~~~~
+
 C:\Users\sasa\AppData\Local\Temp\.arduinoIDE-unsaved202606-8336-12vz7e7.m828\sketch_jan6a\sketch_jan6a.ino: In function 'void loop()':
-C:\Users\sasa\AppData\Local\Temp\.arduinoIDE-unsaved202606-8336-12vz7e7.m828\sketch_jan6a\sketch_jan6a.ino:143:6: error: a function-definition is not allowed here before '{' token
-  143 |      {
+C:\Users\sasa\AppData\Local\Temp\.arduinoIDE-unsaved202606-8336-12vz7e7.m828\sketch_jan6a\sketch_jan6a.ino:129:6: error: a function-definition is not allowed here before '{' token
+  129 |      {
       |      ^
-C:\Users\sasa\AppData\Local\Temp\.arduinoIDE-unsaved202606-8336-12vz7e7.m828\sketch_jan6a\sketch_jan6a.ino:166:9: error: 'sendSensorUpdate' was not declared in this scope
-  166 |         sendSensorUpdate("F1", in_sensor1_float_41199591_1);
+C:\Users\sasa\AppData\Local\Temp\.arduinoIDE-unsaved202606-8336-12vz7e7.m828\sketch_jan6a\sketch_jan6a.ino:152:9: error: 'sendSensorUpdate' was not declared in this scope
+  152 |         sendSensorUpdate("F1", in_sensor1_float_41199591_1);
       |         ^~~~~~~~~~~~~~~~
-C:\Users\sasa\AppData\Local\Temp\.arduinoIDE-unsaved202606-8336-12vz7e7.m828\sketch_jan6a\sketch_jan6a.ino:171:9: error: 'sendSensorUpdate' was not declared in this scope
-  171 |         sendSensorUpdate("F2", in_sensor2_float_41199591_1);
+C:\Users\sasa\AppData\Local\Temp\.arduinoIDE-unsaved202606-8336-12vz7e7.m828\sketch_jan6a\sketch_jan6a.ino:157:9: error: 'sendSensorUpdate' was not declared in this scope
+  157 |         sendSensorUpdate("F2", in_sensor2_float_41199591_1);
       |         ^~~~~~~~~~~~~~~~
-C:\Users\sasa\AppData\Local\Temp\.arduinoIDE-unsaved202606-8336-12vz7e7.m828\sketch_jan6a\sketch_jan6a.ino:176:9: error: 'sendSensorUpdate' was not declared in this scope
-  176 |         sendSensorUpdate("F3", in_sensor3_float_41199591_1);
+C:\Users\sasa\AppData\Local\Temp\.arduinoIDE-unsaved202606-8336-12vz7e7.m828\sketch_jan6a\sketch_jan6a.ino:162:9: error: 'sendSensorUpdate' was not declared in this scope
+  162 |         sendSensorUpdate("F3", in_sensor3_float_41199591_1);
       |         ^~~~~~~~~~~~~~~~
-C:\Users\sasa\AppData\Local\Temp\.arduinoIDE-unsaved202606-8336-12vz7e7.m828\sketch_jan6a\sketch_jan6a.ino:182:9: error: 'sendSensorUpdate' was not declared in this scope
-  182 |         sendSensorUpdate("I1", (float)in_sensor1_int_41199591_1);
+C:\Users\sasa\AppData\Local\Temp\.arduinoIDE-unsaved202606-8336-12vz7e7.m828\sketch_jan6a\sketch_jan6a.ino:168:9: error: 'sendSensorUpdate' was not declared in this scope
+  168 |         sendSensorUpdate("I1", (float)in_sensor1_int_41199591_1);
       |         ^~~~~~~~~~~~~~~~
-C:\Users\sasa\AppData\Local\Temp\.arduinoIDE-unsaved202606-8336-12vz7e7.m828\sketch_jan6a\sketch_jan6a.ino:187:9: error: 'sendSensorUpdate' was not declared in this scope
-  187 |         sendSensorUpdate("I2", (float)in_sensor2_int_41199591_1);
+C:\Users\sasa\AppData\Local\Temp\.arduinoIDE-unsaved202606-8336-12vz7e7.m828\sketch_jan6a\sketch_jan6a.ino:173:9: error: 'sendSensorUpdate' was not declared in this scope
+  173 |         sendSensorUpdate("I2", (float)in_sensor2_int_41199591_1);
       |         ^~~~~~~~~~~~~~~~
-C:\Users\sasa\AppData\Local\Temp\.arduinoIDE-unsaved202606-8336-12vz7e7.m828\sketch_jan6a\sketch_jan6a.ino:192:9: error: 'sendSensorUpdate' was not declared in this scope
-  192 |         sendSensorUpdate("I3", (float)in_sensor3_int_41199591_1);
+C:\Users\sasa\AppData\Local\Temp\.arduinoIDE-unsaved202606-8336-12vz7e7.m828\sketch_jan6a\sketch_jan6a.ino:178:9: error: 'sendSensorUpdate' was not declared in this scope
+  178 |         sendSensorUpdate("I3", (float)in_sensor3_int_41199591_1);
       |         ^~~~~~~~~~~~~~~~
-C:\Users\sasa\AppData\Local\Temp\.arduinoIDE-unsaved202606-8336-12vz7e7.m828\sketch_jan6a\sketch_jan6a.ino:198:121: error: 'Uart_256272636_data' was not declared in this scope
-  198 |     if( ! (0)) {if( ! ((out_debug_str_41199591_1) == (_stou1))) {FLProgUart.printUart(String(out_debug_str_41199591_1), Uart_256272636_data.number);}}
