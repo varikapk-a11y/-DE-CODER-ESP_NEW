@@ -1,3 +1,4 @@
+//код проекта из flprog
 #include "flprogUtilites.h"
 extern "C" 
 {
