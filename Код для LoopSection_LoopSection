@@ -1,14 +1,12 @@
 ## для блока CODER>ESP_NEW
+-----------------
 # Код для DeclareSection
 // Переменные для хранения предыдущих значений датчиков
 float old_f1= 0, old_f2 = 0, old_f3 = 0;
 int old_i1= 0, old_i2 = 0, old_i3 = 0;
 bool firstRun= true;
-// Объявление функции (без тела, только сигнатура)
-void sendSensorUpdate(String key, float value);
-
 ------------
-
+# Код для LoopSection
 // === ОПРЕДЕЛЕНИЕ ФУНКЦИИ ===
 void sendSensorUpdate(String key, float value) {
     out_espnow_string = key + ":" + String(value, 2);
@@ -31,35 +29,53 @@ if (firstRun) {
 
 // ОСНОВНАЯ ЛОГИКА: ПРОВЕРЯЕМ ИЗМЕНЕНИЯ И ФОРМИРУЕМ СТРОКУ
 if (in_trigger) {
-    if (in_sensor1_float != old_f1) {
-        sendSensorUpdate("F1", in_sensor1_float);
-        old_f1 = in_sensor1_float;
-        return;
+if (in_sensor1_float != old_f1) {
+    // Вместо вызова функции — её код
+    out_espnow_string = "F1:" + String(in_sensor1_float, 2);
+    out_debug_str = "Sent -> " + out_espnow_string;
+    // Конец кода функции
+    old_f1 = in_sensor1_float;
+    return;
     }
-    if (in_sensor2_float != old_f2) {
-        sendSensorUpdate("F2", in_sensor2_float);
-        old_f2 = in_sensor2_float;
-        return;
+   if (in_sensor2_float != old_f2) {
+    // Вместо вызова функции — её код
+    out_espnow_string = "F2:" + String(in_sensor2_float, 2);
+    out_debug_str = "Sent -> " + out_espnow_string;
+    // Конец кода функции
+    old_f2 = in_sensor2_float;
+    return;
     }
-    if (in_sensor3_float != old_f3) {
-        sendSensorUpdate("F3", in_sensor3_float);
-        old_f3 = in_sensor3_float;
-        return;
+  if (in_sensor3_float != old_f3) {
+    // КОД из sendSensorUpdate("F3", ...)
+    out_espnow_string = "F3:" + String(in_sensor3_float, 2);
+    out_debug_str = "Sent -> " + out_espnow_string;
+    // КОНЕЦ кода функции
+    old_f3 = in_sensor3_float;
+    return;
     }
-    if (in_sensor1_int != old_i1) {
-        sendSensorUpdate("I1", (float)in_sensor1_int);
-        old_i1 = in_sensor1_int;
-        return;
+   if (in_sensor1_int != old_i1) {
+    // КОД из sendSensorUpdate("I1", ...)
+    out_espnow_string = "I1:" + String(in_sensor1_int); // Для int не нужно 2 знака после запятой
+    out_debug_str = "Sent -> " + out_espnow_string;
+    // КОНЕЦ кода функции
+    old_i1 = in_sensor1_int;
+    return;
     }
-    if (in_sensor2_int != old_i2) {
-        sendSensorUpdate("I2", (float)in_sensor2_int);
-        old_i2 = in_sensor2_int;
-        return;
+if (in_sensor2_int != old_i2) {
+    // КОД из sendSensorUpdate("I2", ...)
+    out_espnow_string = "I2:" + String(in_sensor2_int); // Для int не нужно 2 знака после запятой
+    out_debug_str = "Sent -> " + out_espnow_string;
+    // КОНЕЦ кода функции
+    old_i2 = in_sensor2_int;
+    return;
     }
     if (in_sensor3_int != old_i3) {
-        sendSensorUpdate("I3", (float)in_sensor3_int);
-        old_i3 = in_sensor3_int;
-        return;
+    // КОД из sendSensorUpdate("I3", ...)
+    out_espnow_string = "I3:" + String(in_sensor3_int); // Для int не нужно 2 знака после запятой
+    out_debug_str = "Sent -> " + out_espnow_string;
+    // КОНЕЦ кода функции
+    old_i3 = in_sensor3_int;
+    return;
     }
     out_debug_str = "No changes";
 }
