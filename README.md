@@ -41,15 +41,11 @@ bool firstRun = true;
 
 # LoopSection
 
-// === ВСПОМОГАТЕЛЬНАЯ ФУНКЦИЯ ДЛЯ ФОРМИРОВАНИЯ СТРОКИ ===
 void sendSensorUpdate(String key, float value) {
-    // Формируем строку в формате "КЛЮЧ:ЗНАЧЕНИЕ" (например, "F1:25.50")
     out_espnow_string = key + ":" + String(value, 2);
-    // Для отладки выводим более подробную информацию в монитор порта
     out_debug_str = "Sent -> " + out_espnow_string;
 }
 
-// ИНИЦИАЛИЗАЦИЯ ПРИ ПЕРВОМ ЗАПУСКЕ
 if (firstRun) {
     old_f1 = in_sensor1_float;
     old_f2 = in_sensor2_float;
@@ -62,9 +58,7 @@ if (firstRun) {
     return;
 }
 
-// ОСНОВНАЯ ЛОГИКА: ПРОВЕРЯЕМ ИЗМЕНЕНИЯ И ФОРМИРУЕМ СТРОКУ
 if (in_trigger) {
-    // --- Проверка FLOAT датчиков ---
     if (in_sensor1_float != old_f1) {
         sendSensorUpdate("F1", in_sensor1_float);
         old_f1 = in_sensor1_float;
@@ -80,8 +74,6 @@ if (in_trigger) {
         old_f3 = in_sensor3_float;
         return;
     }
-
-    // --- Проверка INT датчиков (преобразуем int во float) ---
     if (in_sensor1_int != old_i1) {
         sendSensorUpdate("I1", (float)in_sensor1_int);
         old_i1 = in_sensor1_int;
@@ -97,9 +89,8 @@ if (in_trigger) {
         old_i3 = in_sensor3_int;
         return;
     }
-    out_debug_str = "No changes"; // Сообщение, если триггер был, но изменений нет
+    out_debug_str = "No changes";
 }
-
 
 # Что получилось:
 
