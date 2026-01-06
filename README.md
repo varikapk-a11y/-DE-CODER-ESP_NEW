@@ -269,7 +269,7 @@ if (in_trigger && in_espnow_string.length() > 0) {
 
 Добавлены префиксы [DECODER] для фильтрации и ERR: для ошибок.
 
--------------------------- ошибки arduino IDE-----------------
+### ошибки в arduino IDE
 C:\Users\sasa\AppData\Local\Temp\.arduinoIDE-unsaved202606-8336-12vz7e7.m828\sketch_jan6a\sketch_jan6a.ino:14:1: error: 'FLProgUartParametrs' does not name a type
    14 | FLProgUartParametrs Uart_256272636_data;
       | ^~~~~~~~~~~~~~~~~~~
