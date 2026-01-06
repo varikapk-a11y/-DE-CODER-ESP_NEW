@@ -63,22 +63,13 @@ I1, I2 — ключи для int-датчиков
 # DeclareSection
 
 // Переменные для хранения предыдущих значений датчиков
-float old_f1= 0, old_f2 = 0, old_f3 = 0;
-int old_i1= 0, old_i2 = 0, old_i3 = 0;
-bool firstRun= true;
-// Объявление функции (без тела, только сигнатура)
-void sendSensorUpdate(String key, float value);
+float old_f1 = 0, old_f2 = 0, old_f3 = 0;
+int old_i1 = 0, old_i2 = 0, old_i3 = 0;
+bool firstRun = true;
 
 
 # LoopSection
 
-// === ОПРЕДЕЛЕНИЕ ФУНКЦИИ ===
-void sendSensorUpdate(String key, float value) {
-    out_espnow_string = key + ":" + String(value, 2);
-    out_debug_str = "Sent -> " + out_espnow_string;
-}
-
-// === ОСНОВНОЙ КОД ===
 // ИНИЦИАЛИЗАЦИЯ ПРИ ПЕРВОМ ЗАПУСКЕ
 if (firstRun) {
     old_f1 = in_sensor1_float;
@@ -94,33 +85,42 @@ if (firstRun) {
 
 // ОСНОВНАЯ ЛОГИКА: ПРОВЕРЯЕМ ИЗМЕНЕНИЯ И ФОРМИРУЕМ СТРОКУ
 if (in_trigger) {
+    // --- Проверка FLOAT датчиков ---
     if (in_sensor1_float != old_f1) {
-        sendSensorUpdate("F1", in_sensor1_float);
+        out_espnow_string = "F1:" + String(in_sensor1_float, 2);
+        out_debug_str = "Sent -> " + out_espnow_string;
         old_f1 = in_sensor1_float;
         return;
     }
     if (in_sensor2_float != old_f2) {
-        sendSensorUpdate("F2", in_sensor2_float);
+        out_espnow_string = "F2:" + String(in_sensor2_float, 2);
+        out_debug_str = "Sent -> " + out_espnow_string;
         old_f2 = in_sensor2_float;
         return;
     }
     if (in_sensor3_float != old_f3) {
-        sendSensorUpdate("F3", in_sensor3_float);
+        out_espnow_string = "F3:" + String(in_sensor3_float, 2);
+        out_debug_str = "Sent -> " + out_espnow_string;
         old_f3 = in_sensor3_float;
         return;
     }
+
+    // --- Проверка INT датчиков ---
     if (in_sensor1_int != old_i1) {
-        sendSensorUpdate("I1", (float)in_sensor1_int);
+        out_espnow_string = "I1:" + String(in_sensor1_int);
+        out_debug_str = "Sent -> " + out_espnow_string;
         old_i1 = in_sensor1_int;
         return;
     }
     if (in_sensor2_int != old_i2) {
-        sendSensorUpdate("I2", (float)in_sensor2_int);
+        out_espnow_string = "I2:" + String(in_sensor2_int);
+        out_debug_str = "Sent -> " + out_espnow_string;
         old_i2 = in_sensor2_int;
         return;
     }
     if (in_sensor3_int != old_i3) {
-        sendSensorUpdate("I3", (float)in_sensor3_int);
+        out_espnow_string = "I3:" + String(in_sensor3_int);
+        out_debug_str = "Sent -> " + out_espnow_string;
         old_i3 = in_sensor3_int;
         return;
     }
@@ -137,7 +137,23 @@ if (in_trigger) {
 Эта строка подается на выход out_espnow_string, который нужно будет подключить к строковому входу (String) блока ESP_NOW ESP8266 (передатчик).
 
 Проверьте и сохраните блок. После этого мы создадим DECODER_ESP_NEW для разбора такой строки на стороне приемника.
+# ⚠️ Важное примечание по использованию памяти
+Проект успешно компилируется в Arduino IDE 2.3.7. Однако, при использовании FLProg важно учитывать, что служебные библиотеки среды (FLProg_Utilites, RT_HW_BASE) потребляют значительную часть оперативной памяти микроконтроллера ESP8266 (IRAM).
 
+Рекомендация для будущей сборки полной системы (CODER>ESP_NEW + ESP_NOW ESP8266):
+
+В Arduino IDE выберите для платы вариант "Flash Size" со значением "4MB (FS:3MB OTA:~1019KB)" для максимального выделения памяти под код (IRAM).
+
+Минимизируйте количество других блоков в проекте FLProg.
+
+📁 Структура архива проекта
+Для полноты архива в репозитории уже присутствуют ключевые файлы:
+
+Код для LoopSection_LoopSection – актуальный, рабочий код блока.
+
+ESP_NOW ESP8266 код блока из flprog – пример рабочего блока для сравнения.
+
+Компиляция скетча – пример успешного лога компиляции.
 
 
 # блок DECODER_ESP_NEW - далее
