@@ -1,10 +1,12 @@
-# -DE-CODER-ESP_NEW
-
+# -DE-CODER-ESP_NEW - проект
+# CODER>ESP_NEW - блок
 Теперь я полностью понял архитектуру. Цель проекта — расширить количество входов для блока ESP_NOW ESP8266, объединив данные от многих датчиков в один пакет, который можно передать через один вход ESP-NOW блока.
 
 Правильная задача:
 CODER>ESP_NEW должен упаковывать данные от множества датчиков в единый поток, который можно подать на один из доступных типизированных входов блока ESP_NOW ESP8266.
+
 #  Решение: Использование входа String
+
 У блока ESP_NOW ESP8266 есть входы типа String.
 
 Строка может содержать структурированные данные.
@@ -17,7 +19,9 @@ CODER>ESP_NEW должен упаковывать данные от множес
 [Датчик 1 Int]   ───┤
 [Датчик 2 Int]   ───┤
 [Датчик 3 Int]   ───┘
+
 # Формат строки:
+
 CODER будет формировать строку вида F1:25.50;F2:30.10;I1:100;I2:200;..., где:
 
 F1, F2 — ключи для float-датчиков
@@ -36,6 +40,14 @@ int old_i1 = 0, old_i2 = 0, old_i3 = 0;
 bool firstRun = true;
 
 # LoopSection
+
+// === ВСПОМОГАТЕЛЬНАЯ ФУНКЦИЯ ДЛЯ ФОРМИРОВАНИЯ СТРОКИ ===
+void sendSensorUpdate(String key, float value) {
+    // Формируем строку в формате "КЛЮЧ:ЗНАЧЕНИЕ" (например, "F1:25.50")
+    out_espnow_string = key + ":" + String(value, 2);
+    // Для отладки выводим более подробную информацию в монитор порта
+    out_debug_str = "Sent -> " + out_espnow_string;
+}
 
 // ИНИЦИАЛИЗАЦИЯ ПРИ ПЕРВОМ ЗАПУСКЕ
 if (firstRun) {
@@ -88,14 +100,10 @@ if (in_trigger) {
     out_debug_str = "No changes"; // Сообщение, если триггер был, но изменений нет
 }
 
-// === ВСПОМОГАТЕЛЬНАЯ ФУНКЦИЯ ДЛЯ ФОРМИРОВАНИЯ СТРОКИ ===
-void sendSensorUpdate(String key, float value) {
-    // Формируем строку в формате "КЛЮЧ:ЗНАЧЕНИЕ" (например, "F1:25.50")
-    out_espnow_string = key + ":" + String(value, 2);
-    // Для отладки выводим более подробную информацию в монитор порта
-    out_debug_str = "Sent -> " + out_espnow_string;
-}
+
 # Что получилось:
+
+
 Блок отслеживает изменения на 6 входах.
 
 При изменении одного датчика формирует компактную строку (например, "F1:25.50").
@@ -103,14 +111,20 @@ void sendSensorUpdate(String key, float value) {
 Эта строка подается на выход out_espnow_string, который нужно будет подключить к строковому входу (String) блока ESP_NOW ESP8266 (передатчик).
 
 Проверьте и сохраните блок. После этого мы создадим DECODER_ESP_NEW для разбора такой строки на стороне приемника.
-#
-# блока DECODER_ESP_NEW
-#
-## Код для DeclareSection
+
+
+
+# блок DECODER_ESP_NEW - далее
+
+# Код для DeclareSection
+
 // Переменные для хранения последних разобранных значений
 float last_f1 = 0, last_f2 = 0, last_f3 = 0;
 int last_i1 = 0, last_i2 = 0, last_i3 = 0;
-## Код для LoopSection
+
+
+# Код для LoopSection
+
 // ОСНОВНАЯ ЛОГИКА: Активируется по переднему фронту in_trigger
 if (in_trigger && in_espnow_string.length() > 0) {
     // Ищем разделитель ':'
@@ -162,18 +176,22 @@ if (in_trigger && in_espnow_string.length() > 0) {
         out_debug_str = "D: Invalid format -> " + in_espnow_string;
     }
 }
+
 #  Итоговая архитектура на приёмной стороне:
+
 [ESP_NOW ESP8266 (Режим "Прием")] --> (Выход String) --> [DECODER_ESP_NEW.in_espnow_string]
                                                                |
                                             [DECODER_ESP_NEW.out_sensor1_float] --> [Nextion]
                                             [DECODER_ESP_NEW.out_sensor2_float] --> [Nextion]
                                                                ... и т.д.
 ## Архитектура отладки на приёмной стороне
+
 [ESP_NOW ESP8266 (Receiver)] --- (debug String) ---> [Software UART 1] ---> Монитор порта (Строка 1)
          ↓
 (espnow_string) ---> [DECODER_ESP_NEW] --- (out_debug_str) ---> [Software UART 2] ---> Монитор порта (Строка 2)
 
 # Настройка блока ESP_NOW ESP8266 (приёмник)
+
 В параметрах блока активируйте флажок для создания выхода debug (см. пункт 2.3 описания: "debug - выход для вывода информации при отладке...").
 
 В проекте FLProg:
@@ -185,7 +203,9 @@ if (in_trigger && in_espnow_string.length() > 0) {
 В настройках Software UART выберите, например, UART1 и скорость (115200).
 
 Теперь в Мониторе порта вы будете видеть системные сообщения от ESP-NOW.
+
 # Настройка DECODER_ESP_NEW для отладки
+
 Мы уже предусмотрели выход out_debug_str. Нужно вывести его на второй виртуальный порт.
 
 В проекте FLProg:
@@ -195,9 +215,13 @@ if (in_trigger && in_espnow_string.length() > 0) {
 Подключите выход out_debug_str блока DECODER_ESP_NEW ко входу этого Software UART.
 
 В настройках выберите, например, UART2.
+
 # Пример кода для LoopSection DECODER_ESP_NEW (улучшенная отладка)
+
 Чтобы в Мониторе порта было понятнее, можно немного изменить строку отладки в коде LoopSection DECODER_ESP_NEW. Найдите блоки out_debug_str = "D: F1=..." и замените формирование строки на более информативное:
+
 # LoopSection блока DECODER_ESP_NEW:
+
 // ОСНОВНАЯ ЛОГИКА: Активируется по переднему фронту in_trigger
 if (in_trigger && in_espnow_string.length() > 0) {
     // Ищем разделитель ':'
@@ -251,6 +275,7 @@ if (in_trigger && in_espnow_string.length() > 0) {
 }
                                                                            
 #  Порядок тестирования
+
 Соберите схему передатчика (CODER>ESP_NEW → ESP_NOW (Transmitter)).
 
 Соберите схему приёмника как указано выше.
@@ -264,37 +289,39 @@ if (in_trigger && in_espnow_string.length() > 0) {
 Сообщение о приёме от ESP_NOW (Receiver).
 
 Сообщение "[DECODER] Key:..." о успешном разборе.
+
  # Ключевое изменение:
+ 
  Все 6 строк out_debug_str = "D: F1=... заменены на единый формат "[DECODER] Key:XX Val:...".
 
 Добавлены префиксы [DECODER] для фильтрации и ERR: для ошибок.
 
-### 2 ошибки в arduino IDE
+###  ошибки в arduino IDE №3
 
 C:\Users\sasa\AppData\Local\Temp\.arduinoIDE-unsaved202606-8336-12vz7e7.m828\sketch_jan6a\sketch_jan6a.ino: In function 'void loop()':
 C:\Users\sasa\AppData\Local\Temp\.arduinoIDE-unsaved202606-8336-12vz7e7.m828\sketch_jan6a\sketch_jan6a.ino:65:6: error: a function-definition is not allowed here before '{' token
    65 |      {
       |      ^
 C:\Users\sasa\AppData\Local\Temp\.arduinoIDE-unsaved202606-8336-12vz7e7.m828\sketch_jan6a\sketch_jan6a.ino:88:9: error: 'sendSensorUpdate' was not declared in this scope
-   88 |         sendSensorUpdate("F1", in_sensor1_float_228971699_1);
+   88 |         sendSensorUpdate("F1", in_sensor1_float_125475758_1);
       |         ^~~~~~~~~~~~~~~~
 C:\Users\sasa\AppData\Local\Temp\.arduinoIDE-unsaved202606-8336-12vz7e7.m828\sketch_jan6a\sketch_jan6a.ino:93:9: error: 'sendSensorUpdate' was not declared in this scope
-   93 |         sendSensorUpdate("F2", in_sensor2_float_228971699_1);
+   93 |         sendSensorUpdate("F2", in_sensor2_float_125475758_1);
       |         ^~~~~~~~~~~~~~~~
 C:\Users\sasa\AppData\Local\Temp\.arduinoIDE-unsaved202606-8336-12vz7e7.m828\sketch_jan6a\sketch_jan6a.ino:98:9: error: 'sendSensorUpdate' was not declared in this scope
-   98 |         sendSensorUpdate("F3", in_sensor3_float_228971699_1);
+   98 |         sendSensorUpdate("F3", in_sensor3_float_125475758_1);
       |         ^~~~~~~~~~~~~~~~
 C:\Users\sasa\AppData\Local\Temp\.arduinoIDE-unsaved202606-8336-12vz7e7.m828\sketch_jan6a\sketch_jan6a.ino:104:9: error: 'sendSensorUpdate' was not declared in this scope
-  104 |         sendSensorUpdate("I1", (float)in_sensor1_int_228971699_1);
+  104 |         sendSensorUpdate("I1", (float)in_sensor1_int_125475758_1);
       |         ^~~~~~~~~~~~~~~~
 C:\Users\sasa\AppData\Local\Temp\.arduinoIDE-unsaved202606-8336-12vz7e7.m828\sketch_jan6a\sketch_jan6a.ino:109:9: error: 'sendSensorUpdate' was not declared in this scope
-  109 |         sendSensorUpdate("I2", (float)in_sensor2_int_228971699_1);
+  109 |         sendSensorUpdate("I2", (float)in_sensor2_int_125475758_1);
       |         ^~~~~~~~~~~~~~~~
 C:\Users\sasa\AppData\Local\Temp\.arduinoIDE-unsaved202606-8336-12vz7e7.m828\sketch_jan6a\sketch_jan6a.ino:114:9: error: 'sendSensorUpdate' was not declared in this scope
-  114 |         sendSensorUpdate("I3", (float)in_sensor3_int_228971699_1);
+  114 |         sendSensorUpdate("I3", (float)in_sensor3_int_125475758_1);
       |         ^~~~~~~~~~~~~~~~
 
-#### 2 скетч от flprog
+#### актуальный скетч из flprog для отправки в arduino ide 2.3.7
 
 #define RT_HW_FLPROG_PRG "FLProg 9.6.4 - SP 0.0"
 #define RT_HW_FLPROG_PRJ "FLProg 9.6.4 - SP 0.0"
@@ -308,20 +335,20 @@ RT_HW_SPECIAL_ISTANCE
 #endif
 FLProgOnBoardWifiInterface WifiInterface_103439370;
 #define FLPROG_WIFI_INTERFACE1 WifiInterface_103439370
-float in_sensor1_float_157758183_1;
-float in_sensor2_float_157758183_1;
-float in_sensor3_float_157758183_1;
-int16_t in_sensor1_int_157758183_1;
-int16_t in_sensor2_int_157758183_1;
-int16_t in_sensor3_int_157758183_1;
-String in_peer_mac_157758183_1;
-bool in_trigger_157758183_1;
-String out_debug_str_157758183_1;
-String out_espnow_string_157758183_1;
+float in_sensor1_float_125475758_1;
+float in_sensor2_float_125475758_1;
+float in_sensor3_float_125475758_1;
+int16_t in_sensor1_int_125475758_1;
+int16_t in_sensor2_int_125475758_1;
+int16_t in_sensor3_int_125475758_1;
+String in_peer_mac_125475758_1;
+bool in_trigger_125475758_1;
+String out_debug_str_125475758_1;
+String out_espnow_string_125475758_1;
 // Переменные для хранения предыдущих значений датчиков
-float old_f1_157758183_1 = 0, old_f2 = 0, old_f3 = 0;
-int old_i1_157758183_1 = 0, old_i2 = 0, old_i3 = 0;
-bool firstRun_157758183_1 = true;
+float old_f1_125475758_1 = 0, old_f2 = 0, old_f3 = 0;
+int old_i1_125475758_1 = 0, old_i2 = 0, old_i3 = 0;
+bool firstRun_125475758_1 = true;
 void setup()
  {
   RT_HW_Base.shed.quick.qnt = 5;
@@ -350,69 +377,69 @@ void loop()
   //Плата:1
   if(RT_HW_Base.shed.frdm.num == 1)
    {
-    in_sensor1_float_157758183_1 = 0;
-    in_sensor2_float_157758183_1 = 0;
-    in_sensor3_float_157758183_1 = 0;
-    in_sensor1_int_157758183_1 = 0;
-    in_sensor2_int_157758183_1 = 0;
-    in_sensor3_int_157758183_1 = 0;
-    in_peer_mac_157758183_1 = String("");
-    in_trigger_157758183_1 = 0;
+    in_sensor1_float_125475758_1 = 0;
+    in_sensor2_float_125475758_1 = 0;
+    in_sensor3_float_125475758_1 = 0;
+    in_sensor1_int_125475758_1 = 0;
+    in_sensor2_int_125475758_1 = 0;
+    in_sensor3_int_125475758_1 = 0;
+    in_peer_mac_125475758_1 = String("");
+    in_trigger_125475758_1 = 0;
     //===ВСПОМОГАТЕЛЬНАЯ ФУНКЦИЯ ДЛЯ ФОРМИРОВАНИЯ СТРОКИ===
     void sendSensorUpdate(String key, float value)
      {
       // Формируем строку в формате "КЛЮЧ:ЗНАЧЕНИЕ"(например,"F1:25.50")
-      out_espnow_string_157758183_1 = key  +  ":"  +  String(value, 2);
+      out_espnow_string_125475758_1 = key  +  ":"  +  String(value, 2);
       // Для отладки выводим более подробную информацию в монитор порта
-      out_debug_str_157758183_1 = "Sent ->"  +  out_espnow_string_157758183_1;}
+      out_debug_str_125475758_1 = "Sent ->"  +  out_espnow_string_125475758_1;}
     // ИНИЦИАЛИЗАЦИЯ ПРИ ПЕРВОМ ЗАПУСКЕ
-    if(firstRun_157758183_1)
+    if(firstRun_125475758_1)
      {
-      old_f1_157758183_1 = in_sensor1_float_157758183_1;
-      old_f2 = in_sensor2_float_157758183_1;
-      old_f3 = in_sensor3_float_157758183_1;
-      old_i1_157758183_1 = in_sensor1_int_157758183_1;
-      old_i2 = in_sensor2_int_157758183_1;
-      old_i3 = in_sensor3_int_157758183_1;
-      firstRun_157758183_1 = false;
-      out_debug_str_157758183_1 = "Coder INIT";
+      old_f1_125475758_1 = in_sensor1_float_125475758_1;
+      old_f2 = in_sensor2_float_125475758_1;
+      old_f3 = in_sensor3_float_125475758_1;
+      old_i1_125475758_1 = in_sensor1_int_125475758_1;
+      old_i2 = in_sensor2_int_125475758_1;
+      old_i3 = in_sensor3_int_125475758_1;
+      firstRun_125475758_1 = false;
+      out_debug_str_125475758_1 = "Coder INIT";
       return;}
     // ОСНОВНАЯ ЛОГИКА: ПРОВЕРЯЕМ ИЗМЕНЕНИЯ И ФОРМИРУЕМ СТРОКУ
-    if(in_trigger_157758183_1)
+    if(in_trigger_125475758_1)
      {
       // --- Проверка FLOAT датчиков ---
-      if(in_sensor1_float_157758183_1 != old_f1_157758183_1)
+      if(in_sensor1_float_125475758_1 != old_f1_125475758_1)
        {
-        sendSensorUpdate("F1", in_sensor1_float_157758183_1);
-        old_f1_157758183_1 = in_sensor1_float_157758183_1;
+        sendSensorUpdate("F1", in_sensor1_float_125475758_1);
+        old_f1_125475758_1 = in_sensor1_float_125475758_1;
         return;}
-      if(in_sensor2_float_157758183_1 != old_f2)
+      if(in_sensor2_float_125475758_1 != old_f2)
        {
-        sendSensorUpdate("F2", in_sensor2_float_157758183_1);
-        old_f2 = in_sensor2_float_157758183_1;
+        sendSensorUpdate("F2", in_sensor2_float_125475758_1);
+        old_f2 = in_sensor2_float_125475758_1;
         return;}
-      if(in_sensor3_float_157758183_1 != old_f3)
+      if(in_sensor3_float_125475758_1 != old_f3)
        {
-        sendSensorUpdate("F3", in_sensor3_float_157758183_1);
-        old_f3 = in_sensor3_float_157758183_1;
+        sendSensorUpdate("F3", in_sensor3_float_125475758_1);
+        old_f3 = in_sensor3_float_125475758_1;
         return;}
       // --- Проверка INT датчиков(преобразуем int во float)---
-      if(in_sensor1_int_157758183_1 != old_i1_157758183_1)
+      if(in_sensor1_int_125475758_1 != old_i1_125475758_1)
        {
-        sendSensorUpdate("I1", (float)in_sensor1_int_157758183_1);
-        old_i1_157758183_1 = in_sensor1_int_157758183_1;
+        sendSensorUpdate("I1", (float)in_sensor1_int_125475758_1);
+        old_i1_125475758_1 = in_sensor1_int_125475758_1;
         return;}
-      if(in_sensor2_int_157758183_1 != old_i2)
+      if(in_sensor2_int_125475758_1 != old_i2)
        {
-        sendSensorUpdate("I2", (float)in_sensor2_int_157758183_1);
-        old_i2 = in_sensor2_int_157758183_1;
+        sendSensorUpdate("I2", (float)in_sensor2_int_125475758_1);
+        old_i2 = in_sensor2_int_125475758_1;
         return;}
-      if(in_sensor3_int_157758183_1 != old_i3)
+      if(in_sensor3_int_125475758_1 != old_i3)
        {
-        sendSensorUpdate("I3", (float)in_sensor3_int_157758183_1);
-        old_i3 = in_sensor3_int_157758183_1;
+        sendSensorUpdate("I3", (float)in_sensor3_int_125475758_1);
+        old_i3 = in_sensor3_int_125475758_1;
         return;}
-      out_debug_str_157758183_1 = "No changes";
+      out_debug_str_125475758_1 = "No changes";
       // Сообщение,если триггер был,но изменений нет
     }}}
 
