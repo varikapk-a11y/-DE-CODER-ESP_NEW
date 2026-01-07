@@ -82,7 +82,6 @@ if (firstRun) {
     out_debug_str = "Coder INIT";
     return;
 }
-
 // ОСНОВНАЯ ЛОГИКА: ПРОВЕРЯЕМ ИЗМЕНЕНИЯ И ФОРМИРУЕМ СТРОКУ
 if (in_trigger) {
     // --- Проверка FLOAT датчиков ---
@@ -104,7 +103,6 @@ if (in_trigger) {
         old_f3 = in_sensor3_float;
         return;
     }
-
     // --- Проверка INT датчиков ---
     if (in_sensor1_int != old_i1) {
         out_espnow_string = "I1:" + String(in_sensor1_int);
