@@ -1,98 +1,315 @@
-//код проекта из flprog
+# Код из FLProg - тестирование!
+``` cpp
 #include "flprogUtilites.h"
 extern "C" 
 {
     #include "user_interface.h"
 }
-float in_sensor1_float_68231385_1;
-float in_sensor2_float_68231385_1;
-float in_sensor3_float_68231385_1;
-int in_sensor1_int_68231385_1;
-int in_sensor2_int_68231385_1;
-int in_sensor3_int_68231385_1;
-String in_peer_mac_68231385_1;
-bool in_trigger_68231385_1;
-String out_debug_str_68231385_1;
-String out_espnow_string_68231385_1;
+float in_sensor1_float_118026917_1;
+float in_sensor2_float_118026917_1;
+float in_sensor3_float_118026917_1;
+int in_sensor1_int_118026917_1;
+int in_sensor2_int_118026917_1;
+int in_sensor3_int_118026917_1;
+String in_peer_mac_118026917_1;
+bool in_trigger_118026917_1;
+String out_debug_str_118026917_1;
+String out_espnow_string_118026917_1;
 // Переменные для хранения предыдущих значений датчиков
-float old_f1_68231385_1= 0, old_f2 = 0, old_f3 = 0;
-int old_i1_68231385_1= 0, old_i2 = 0, old_i3 = 0;
-bool firstRun_68231385_1= true;
-// Объявление функции (без тела, только сигнатура)
-void sendSensorUpdate_68231385_1(String key, float value);
+float old_f1_118026917_1= 0, old_f2 = 0, old_f3 = 0;
+int old_i1_118026917_1= 0, old_i2 = 0, old_i3 = 0;
+bool firstRun_118026917_1= true;
+bool _tim1I = 0;
+bool _tim1O = 0;
+unsigned long _tim1P = 0UL;
+String _stou1;
+bool _tim3I = 0;
+bool _tim3O = 0;
+unsigned long _tim3P = 0UL;
+bool _changeNumber1_Out = 0;
+float _changeNumber1_OLV;
+float _swi2;
+bool _changeNumber4_Out = 0;
+int _changeNumber4_OLV;
+bool _tim2I = 0;
+bool _tim2O = 0;
+unsigned long _tim2P = 0UL;
+int _swi4;
+float _swi1;
+bool _changeNumber2_Out = 0;
+float _changeNumber2_OLV;
+bool _tim4I = 0;
+bool _tim4O = 0;
+unsigned long _tim4P = 0UL;
+bool _changeNumber3_Out = 0;
+int _changeNumber3_OLV;
+int _swi3;
+int _tempVariable_int;
+float _tempVariable_float;
 void setup()
 {
+    _startUart0();
 }
 void loop()
 {
     //Плата:1
-    in_sensor1_float_68231385_1 = 0;
-    in_sensor2_float_68231385_1 = 0;
-    in_sensor3_float_68231385_1 = 0;
-    in_sensor1_int_68231385_1 = 0;
-    in_sensor2_int_68231385_1 = 0;
-    in_sensor3_int_68231385_1 = 0;
-    in_peer_mac_68231385_1 = String("");
-    in_trigger_68231385_1 = 0;
-    // === ОПРЕДЕЛЕНИЕ ФУНКЦИИ ===
-    void sendSensorUpdate_68231385_1(String key, float value) 
+    if (!(0))
     {
-        out_espnow_string_68231385_1 = key + ":" + String(value, 2);
-        out_debug_str_68231385_1 = "Sent -> " + out_espnow_string_68231385_1;
+         if (_tim1I) 
+        {
+             if (flprog::isTimer(_tim1P, 2002)) 
+            {
+                _tim1O = 1;
+            }
+        }
+         else 
+        {
+            _tim1I =1;
+            _tim1P = millis();
+        }
     }
+     else 
+    {
+        _tim1O = 0;
+        _tim1I = 0;
+    }
+    if(_tim1O)
+    {
+        _swi1=1.2;
+    }
+    else
+    {
+        _swi1=1.1;
+    }
+    if (!(0))
+    {
+         if (_tim2I) 
+        {
+             if (flprog::isTimer(_tim2P, 3003)) 
+            {
+                _tim2O = 1;
+            }
+        }
+         else 
+        {
+            _tim2I =1;
+            _tim2P = millis();
+        }
+    }
+     else 
+    {
+        _tim2O = 0;
+        _tim2I = 0;
+    }
+    if(_tim2O)
+    {
+        _swi2=2.2;
+    }
+    else
+    {
+        _swi2=2.1;
+    }
+    if (_changeNumber2_Out) 
+    {
+        _changeNumber2_Out = 0;
+    }
+     else 
+    {
+        _tempVariable_float = _swi2;
+        if (_tempVariable_float != _changeNumber2_OLV) 
+        {
+            _changeNumber2_OLV = _tempVariable_float;
+            _changeNumber2_Out = 1;
+        }
+    }
+    if (_changeNumber1_Out) 
+    {
+        _changeNumber1_Out = 0;
+    }
+     else 
+    {
+        _tempVariable_float = _swi1;
+        if (_tempVariable_float != _changeNumber1_OLV) 
+        {
+            _changeNumber1_OLV = _tempVariable_float;
+            _changeNumber1_Out = 1;
+        }
+    }
+    if (!(0))
+    {
+         if (_tim3I) 
+        {
+             if (flprog::isTimer(_tim3P, 4004)) 
+            {
+                _tim3O = 1;
+            }
+        }
+         else 
+        {
+            _tim3I =1;
+            _tim3P = millis();
+        }
+    }
+     else 
+    {
+        _tim3O = 0;
+        _tim3I = 0;
+    }
+    if(_tim3O)
+    {
+        _swi3=2;
+    }
+    else
+    {
+        _swi3=1;
+    }
+    if (_changeNumber3_Out) 
+    {
+        _changeNumber3_Out = 0;
+    }
+     else 
+    {
+        _tempVariable_int = _swi3;
+        if (_tempVariable_int != _changeNumber3_OLV) 
+        {
+            _changeNumber3_OLV = _tempVariable_int;
+            _changeNumber3_Out = 1;
+        }
+    }
+    if (!(0))
+    {
+         if (_tim4I) 
+        {
+             if (flprog::isTimer(_tim4P, 5005)) 
+            {
+                _tim4O = 1;
+            }
+        }
+         else 
+        {
+            _tim4I =1;
+            _tim4P = millis();
+        }
+    }
+     else 
+    {
+        _tim4O = 0;
+        _tim4I = 0;
+    }
+    if(_tim4O)
+    {
+        _swi4=4;
+    }
+    else
+    {
+        _swi4=3;
+    }
+    if (_changeNumber4_Out) 
+    {
+        _changeNumber4_Out = 0;
+    }
+     else 
+    {
+        _tempVariable_int = _swi4;
+        if (_tempVariable_int != _changeNumber4_OLV) 
+        {
+            _changeNumber4_OLV = _tempVariable_int;
+            _changeNumber4_Out = 1;
+        }
+    }
+    in_sensor1_float_118026917_1 = _swi1;
+    in_sensor2_float_118026917_1 = _swi2;
+    in_sensor3_float_118026917_1 = 0;
+    in_sensor1_int_118026917_1 = _swi3;
+    in_sensor2_int_118026917_1 = _swi4;
+    in_sensor3_int_118026917_1 = 0;
+    in_peer_mac_118026917_1 = String("");
+    in_trigger_118026917_1 = ((_changeNumber1_Out) || (_changeNumber2_Out) || (_changeNumber3_Out) || (_changeNumber4_Out));
     // === ОСНОВНОЙ КОД ===
 // ИНИЦИАЛИЗАЦИЯ ПРИ ПЕРВОМ ЗАПУСКЕ
-    if (firstRun_68231385_1) 
+    if (firstRun_118026917_1) 
     {
-        old_f1_68231385_1 = in_sensor1_float_68231385_1;
-        old_f2 = in_sensor2_float_68231385_1;
-        old_f3 = in_sensor3_float_68231385_1;
-        old_i1_68231385_1 = in_sensor1_int_68231385_1;
-        old_i2 = in_sensor2_int_68231385_1;
-        old_i3 = in_sensor3_int_68231385_1;
-        firstRun_68231385_1 = false;
-        out_debug_str_68231385_1 = "Coder INIT";
+        old_f1_118026917_1 = in_sensor1_float_118026917_1;
+        old_f2 = in_sensor2_float_118026917_1;
+        old_f3 = in_sensor3_float_118026917_1;
+        old_i1_118026917_1 = in_sensor1_int_118026917_1;
+        old_i2 = in_sensor2_int_118026917_1;
+        old_i3 = in_sensor3_int_118026917_1;
+        firstRun_118026917_1 = false;
+        out_debug_str_118026917_1 = "Coder INIT";
         return;
     }
     // ОСНОВНАЯ ЛОГИКА: ПРОВЕРЯЕМ ИЗМЕНЕНИЯ И ФОРМИРУЕМ СТРОКУ
-    if (in_trigger_68231385_1) 
+    if (in_trigger_118026917_1) 
     {
-        if (in_sensor1_float_68231385_1 != old_f1_68231385_1) 
+        if (in_sensor1_float_118026917_1 != old_f1_118026917_1) 
         {
-            sendSensorUpdate_68231385_1("F1", in_sensor1_float_68231385_1);
-            old_f1_68231385_1 = in_sensor1_float_68231385_1;
+            // Вместо вызова функции — её код
+                out_espnow_string_118026917_1 = "F1:" + String(in_sensor1_float_118026917_1, 2);
+            out_debug_str_118026917_1 = "Sent -> " + out_espnow_string_118026917_1;
+            // Конец кода функции
+                old_f1_118026917_1 = in_sensor1_float_118026917_1;
             return;
         }
-        if (in_sensor2_float_68231385_1 != old_f2) 
+        if (in_sensor2_float_118026917_1 != old_f2) 
         {
-            sendSensorUpdate_68231385_1("F2", in_sensor2_float_68231385_1);
-            old_f2 = in_sensor2_float_68231385_1;
+            // Вместо вызова функции — её код
+                out_espnow_string_118026917_1 = "F2:" + String(in_sensor2_float_118026917_1, 2);
+            out_debug_str_118026917_1 = "Sent -> " + out_espnow_string_118026917_1;
+            // Конец кода функции
+                old_f2 = in_sensor2_float_118026917_1;
             return;
         }
-        if (in_sensor3_float_68231385_1 != old_f3) 
+        if (in_sensor3_float_118026917_1 != old_f3) 
         {
-            sendSensorUpdate_68231385_1("F3", in_sensor3_float_68231385_1);
-            old_f3 = in_sensor3_float_68231385_1;
+            // КОД из sendSensorUpdate("F3", ...)
+                out_espnow_string_118026917_1 = "F3:" + String(in_sensor3_float_118026917_1, 2);
+            out_debug_str_118026917_1 = "Sent -> " + out_espnow_string_118026917_1;
+            // КОНЕЦ кода функции
+                old_f3 = in_sensor3_float_118026917_1;
             return;
         }
-        if (in_sensor1_int_68231385_1 != old_i1_68231385_1) 
+        if (in_sensor1_int_118026917_1 != old_i1_118026917_1) 
         {
-            sendSensorUpdate_68231385_1("I1", (float)in_sensor1_int_68231385_1);
-            old_i1_68231385_1 = in_sensor1_int_68231385_1;
+            // КОД из sendSensorUpdate("I1", ...)
+                out_espnow_string_118026917_1 = "I1:" + String(in_sensor1_int_118026917_1); // Для int не нужно 2 знака после запятой
+                out_debug_str_118026917_1 = "Sent -> " + out_espnow_string_118026917_1;
+            // КОНЕЦ кода функции
+                old_i1_118026917_1 = in_sensor1_int_118026917_1;
             return;
         }
-        if (in_sensor2_int_68231385_1 != old_i2) 
+        if (in_sensor2_int_118026917_1 != old_i2) 
         {
-            sendSensorUpdate_68231385_1("I2", (float)in_sensor2_int_68231385_1);
-            old_i2 = in_sensor2_int_68231385_1;
+            // КОД из sendSensorUpdate("I2", ...)
+                out_espnow_string_118026917_1 = "I2:" + String(in_sensor2_int_118026917_1); // Для int не нужно 2 знака после запятой
+                out_debug_str_118026917_1 = "Sent -> " + out_espnow_string_118026917_1;
+            // КОНЕЦ кода функции
+                old_i2 = in_sensor2_int_118026917_1;
             return;
         }
-        if (in_sensor3_int_68231385_1 != old_i3) 
+        if (in_sensor3_int_118026917_1 != old_i3) 
         {
-            sendSensorUpdate_68231385_1("I3", (float)in_sensor3_int_68231385_1);
-            old_i3 = in_sensor3_int_68231385_1;
+            // КОД из sendSensorUpdate("I3", ...)
+                out_espnow_string_118026917_1 = "I3:" + String(in_sensor3_int_118026917_1); // Для int не нужно 2 знака после запятой
+                out_debug_str_118026917_1 = "Sent -> " + out_espnow_string_118026917_1;
+            // КОНЕЦ кода функции
+                old_i3 = in_sensor3_int_118026917_1;
             return;
         }
-        out_debug_str_68231385_1 = "No changes";
+        out_debug_str_118026917_1 = "No changes";
     }
+    if (!(0))
+    {
+        if(!((out_debug_str_118026917_1)==(_stou1)))
+        {
+            Serial.print(out_debug_str_118026917_1);
+        }
+    }
+     _stou1 = out_debug_str_118026917_1;
 }
+void _startUart0()
+{
+    int code= 6;
+    Serial.begin(9600, SERIAL_8N1);
+}
+```
