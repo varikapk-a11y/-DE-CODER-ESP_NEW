@@ -67,6 +67,12 @@ float old_f1 = 0, old_f2 = 0, old_f3 = 0;
 int old_i1 = 0, old_i2 = 0, old_i3 = 0;
 bool firstRun = true;
 
+```cpp
+// Переменные для хранения предыдущих значений датчиков
+float old_f1 = 0, old_f2 = 0, old_f3 = 0;
+int old_i1 = 0, old_i2 = 0, old_i3 = 0;
+bool firstRun = true;
+```
 
 # LoopSection
 
